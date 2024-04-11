@@ -44,7 +44,7 @@ if(isset($data_json) && !empty($data_json)) {
                 <p>Due Amount: ₹ $due_amount</p>
                 <p>Number of Days Overdue: $dayDifference</p>
                 <p>Fine Amount for Late Payment: ₹ $fine_amount</p>
-                <p>Total Amount Due: ₹ ".($total_amount + $due_amount + $fine_amount)."</p>
+                <p>Total Amount Due: ₹ ".($total_amount +  $fine_amount)."</p>
                 <p>Thank you.</p>
             ";
             
