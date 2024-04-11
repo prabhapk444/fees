@@ -82,7 +82,7 @@
 											'course_id' => $row['course_id']
 										);
 										
-										// Encode the array into JSON format
+										
 										$data_json = json_encode($data);
 									?>
 									<td class="text-center">

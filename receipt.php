@@ -55,35 +55,8 @@ while($row=$payments->fetch_array()){
 		<?php endif; ?>
 	</div>
 	<hr>
-	<p><b>Payment Summary</b></p>
-	<table class="wborder">
-		<tr>
-			<td width="50%">
-				<p><b>Fee Details</b></p>
-				<hr>
-				<table width="100%">
-					<tr>
-						<td width="50%">Fee Type</td>
-						<td width="50%" class='text-right'>Amount</td>
-					</tr>
-					<?php 
-				$cfees = $conn->query("SELECT * FROM fees where course_id = $course_id");
-				$ftotal = 0;
-				while ($row = $cfees->fetch_assoc()) {
-					$ftotal += $row['amount'];
-				?>
-				<tr>
-					<td><b><?php echo $row['description'] ?></b></td>
-					<td class='text-right'><b><?php echo number_format($row['amount']) ?></b></td>
-				</tr>
-				<?php
-				}
-				?>
-				<tr>
-					<th>Total</th>
-					<th class='text-right'><b><?php echo number_format($ftotal) ?></b></th>
-				</tr>
-				</table>
+	
+	
 			</td>			
 			<td width="50%">
 			<p><b>Payment Details</b></p>
