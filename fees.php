@@ -43,7 +43,7 @@
 									<th class="">Name</th>
 									<th class="">Payable Fee</th>
 									<th class="">Paid</th>
-									<th class="">Balance</th>
+								
 									<th class="text-center">Action</th>
 								</tr>
 							</thead>
@@ -53,8 +53,9 @@
 								$fees = $conn->query("SELECT ef.*,s.name as sname,s.id_no FROM student_ef_list ef inner join student s on s.id = ef.student_id order by s.name asc ");
 								while($row=$fees->fetch_assoc()):
 									$paid = $conn->query("SELECT sum(amount) as paid FROM payments where ef_id=".$row['id']);
-									$paid = $paid->num_rows > 0 ? $paid->fetch_array()['paid']:'';
-									$balance = $row['total_fee'] - $paid;
+$paid = $paid->num_rows > 0 ? $paid->fetch_array()['paid']:'';
+$balance = $row['total_fee'] - $paid;
+
 								?>
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
@@ -73,9 +74,8 @@
 									<td class="text-right">
 										<p><?php echo number_format($paid,2) ?></p>
 
-									<td class="text-right">
-										<p><?php echo number_format($balance,2) ?></p>
-									</td>
+									
+
 									<?php  
 										$data = array(
 											'student_id' => $row['id_no'],
