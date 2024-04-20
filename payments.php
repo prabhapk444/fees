@@ -56,7 +56,7 @@
 									</td>
 									<td class="text-center">
 										<button class="btn btn-primary view_payment" type="button" data-id="<?php echo $row['id'] ?>" data-ef_id="<?php echo $row['ef_id'] ?>"><i class="fa fa-eye"></i></button>
-										
+										<button class="btn btn-info edit_payment" type="button" data-id="<?php echo $row['id'] ?>" ><i class="fa fa-edit"></i></button>
 										<button class="btn btn-danger delete_payment" type="button" data-id="<?php echo $row['id'] ?>"><i class="fa fa-trash-alt"></i></button>
 									</td>
 								</tr>

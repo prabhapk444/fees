@@ -45,8 +45,7 @@ if(isset($data_json) && !empty($data_json)) {
                 <p>Number of Days Overdue: $dayDifference</p>
                 <p>Fine Amount for Late Payment: ₹ $fine_amount</p>
                 <p>Total Amount Due: ₹ ".($total_amount +  $fine_amount)."</p>
-                <p>Thank you.</p>
-            ";
+                <p>Thank you.</p>";
             
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                 if(!$mail->send()) {

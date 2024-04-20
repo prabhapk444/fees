@@ -197,7 +197,9 @@ Class Action {
 		$total_amount = $postData['total_amount'] ?? '';
 		$level = $postData['level'] ?? '';
 		$description = $postData['description'] ?? '';
+		// $fees_amount = $postData['fees_amount'] ?? ''; 
 		
+	
 		if ($course_id) {
 			$stmt = $conn->prepare("UPDATE courses SET course=?, duedate=?, dueamount=?, total_amount=?, level=?, description=? WHERE id=?");
 			$stmt->bind_param("sssdssi", $course, $duedate, $dueamount, $total_amount, $level, $description, $course_id);
@@ -206,29 +208,36 @@ Class Action {
 			$stmt->bind_param("sssdss", $course, $duedate, $dueamount, $total_amount, $level, $description);
 		}
 		
-		if (!$stmt) {
-			$error_message = $conn->error;
-			echo json_encode(array('status' => 'error', 'message' => 'Error preparing statement: ' . $error_message));
-			exit;
-		}
-		
-		if ($stmt->execute()) {
-			if ($stmt->affected_rows > 0) {
-				if ($course_id) {
-					echo json_encode(array('status' => 'success', 'message' => 'Course updated successfully.'));
-				} else {
-					echo json_encode(array('status' => 'success', 'message' => 'New course added successfully.'));
-				}
-			} else {
-				echo json_encode(array('status' => 'error', 'message' => 'No changes were made.'));
-			}
-			exit;
-		} else {
+		if (!$stmt->execute()) {
 			$error_message = $stmt->error;
 			echo json_encode(array('status' => 'error', 'message' => 'Error executing statement: ' . $error_message));
 			exit;
 		}
+		
+		if (!$course_id) {
+			$course_id = $stmt->insert_id;
+		}
+		
+		
+		$stmt = $conn->prepare("INSERT INTO fees (course_id,amount) VALUES (?, ?)");
+		$stmt->bind_param("id", $course_id, $total_amount);
+
+		
+		if (!$stmt->execute()) {
+			$error_message = $stmt->error;
+			echo json_encode(array('status' => 'error', 'message' => 'Error executing statement for fees table: ' . $error_message));
+			exit;
+		}
+		
+
+		if ($course_id) {
+			echo json_encode(array('status' => 'success', 'message' => 'Course and fees inserted successfully.'));
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Error inserting course and fees.'));
+		}
+		exit;
 	}
+	
 	
 		
 	
